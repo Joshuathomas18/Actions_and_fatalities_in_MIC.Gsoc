@@ -1,1 +1,1 @@
-# Actions_and_fatalities_in_MIC.Gsoc
+# Actions_and_fatalities_in_MIC
