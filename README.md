@@ -1,1 +1,3 @@
-# Actions_and_fatalities_in_MIC
+# Coding Actions and Fatalities in Militarized Interstate Confrontations (MICs), 2002 to 2024
+
+
