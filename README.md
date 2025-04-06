@@ -43,7 +43,7 @@ The MIC Detection Pipeline automates the process of identifying **Mass Incident 
    - **Punctuation Removal:** Eliminate special characters.  
    - **Stopwords Removal:** Remove common words (e.g., "the", "is").  
    - **Tokenization:** Break text into individual words.  
-
+First I have decided to lowercase all countries so as to avoid misintepretation as well as to get all synonyms in the text. Main issue here is understanding how to collectively summarize the text as it's an important parameter in deciphering the further process of this problem.Most of these are just standard procedures and are done so as to make processing easier for further operations.
 🔹 **Code Snippet:**  
 ```python
 import re
