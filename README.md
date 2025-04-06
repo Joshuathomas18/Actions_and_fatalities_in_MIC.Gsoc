@@ -84,7 +84,7 @@ Extract **fatality numbers** & **country mentions** from text using **Named Enti
 3️⃣ Fatalities & locations are stored as structured data.  
 
 ---
-
+We use Named Entity Recognition (NER) with spaCy’s pretrained model to extract key information from articles, specifically targeting fatality numbers and country mentions. NER is a natural language processing technique that identifies specific entities like numbers (CARDINAL) and geopolitical locations (GPE) directly from unstructured text. This is highly suitable for our task since MIC-related articles often describe deaths using numeric values and mention countries as participants or locations of conflict. By combining NER with keyword filtering (e.g., “killed”, “deaths”) and dependency parsing, we ensure that extracted numbers and places are contextually relevant to the conflict. Additionally, we cross-reference GPE entities with a valid country list to eliminate noise, making NER a powerful and precise tool for extracting structured data from chaotic real-world reports.
 ### 💻 **Code Snippet:**  
 ```python
 import spacy
@@ -136,6 +136,7 @@ print(f"Countries: {countries}")
 3️⃣ If both **negative sentiment & high death-word count** are found → MIC detected.  
 
 
+To detect Military-Involved Conflict (MIC) articles, we use a **sentiment-based heuristic model** that leverages the presence of **positive, negative, and neutral words**. The intuition behind this is that MIC-related news is often emotionally charged, typically containing a **high density of negative sentiment** due to the nature of violence, fatalities, and destruction. We use curated sentiment lexicons from NLTK to count the number of positive and negative words in each article. Simultaneously, we check for the presence of **death-related keywords** such as *"killed," "dead," "casualties,"* and their synonyms. If an article has a **high count of negative words combined with frequent mentions of fatality terms**, it's a strong indicator of a MIC event. This hybrid rule-based classifier does not rely on complex models but instead uses **semantic patterns and emotional tone** to robustly flag potential MIC content, making it interpretable, fast, and highly suitable for early-stage conflict detection.
 
 ```python
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
@@ -183,7 +184,7 @@ Classify news articles as MIC (Mass Incident Casualty) or Not MIC using Machine 
 2️⃣ Model predicts if the article is MIC-related or not<br>
 3️⃣ Heuristic rules refine the prediction based on death-related words
 
-
+The hybrid MIC detection model that combines **TF-IDF features** with **heuristic rules** has proven to be the most effective approach compared to other models like **Random Forest** and **Hidden Markov Models (HMMs)**. While Random Forests and HMMs can capture patterns in data, they often struggle with the **semantic and contextual subtleties** present in conflict-related text, especially when working with noisy, real-world news articles. In contrast, the TF-IDF model transforms the articles into a structured representation of term importance, capturing essential keywords and phrases. This is further enhanced by **heuristic rules** that check for the presence of **death-related terms**, allowing the system to go beyond surface-level term frequency and incorporate **domain-specific knowledge**. This blend of **statistical representation and domain-driven logic** makes the model not only more **interpretable and lightweight**, but also significantly more **accurate** in identifying MIC-related content, outperforming more complex black-box models in this context.
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
