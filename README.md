@@ -11,7 +11,8 @@ Mass Incident Casualty (MIC) detection and classification is a crucial NLP task 
 - Identify the countries involved in each incident.  
 - Analyze sentiment (positive, negative, neutral words) for better classification.  
 - Accurately classify articles as **MIC** or **Not MIC** using advanced **heuristic methods**, **POS-based extraction**, and **n-grams**.  
-
+![Alt Text](https://github.com/Joshuathomas18/Actions_and_fatalities_in_MIC.Gsoc/blob/main/Screenshot%202025-04-05%20130936.png)
+**This is an Example of the output of the code**
 ### 🛠 Tech Stack & Libraries  
 
 This project utilizes:  
