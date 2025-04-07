@@ -241,7 +241,7 @@ Here is the [**CODE**](minicode.py) for the same.
 This model operates on a heuristic-based NLP pipeline, which isn't just calling a pre-trained model or fine-tuning something lightweight. It's built from scratch with layers of custom logic for MIC detection, entity recognition, fatality classification, and sentiment analysis.
 Because of this—and the fact that NLP processing can be computationally expensive, especially for non-optimized, rule-heavy models—the processing time is quite high.
 Also, the dataset itself is massive: 766 text files, each with potentially unstructured and complex language. Running deep NLP analysis on this scale takes time.
-So here's a  the [**Output**](final_MIC_output) I was able to generate within the current processing window 👇
+So here's a  the [**Output**](final_MIC_output.csv) I was able to generate within the current processing window 👇
 
 
 ![Alt Text](https://github.com/Joshuathomas18/Actions_and_fatalities_in_MIC.Gsoc/blob/main/Screenshot%202025-04-07%20124246.png)
