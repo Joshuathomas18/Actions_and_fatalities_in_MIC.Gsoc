@@ -1,4 +1,4 @@
-<h1 align="center" style="font-size: 100px;">🚀 MIC Fatality Extraction & Classification</h1>  
+<h1 align="center" style="font-size: 100px;">🚀 GSoC Coding Actions and Fatalities in Militarized Interstate Confrontations (MICs),  2002 to 2024</h1>  
 <p align="center" style="font-size: 80px;">
   A comprehensive NLP pipeline for detecting, classifying, and analyzing Mass Incident Casualties (MIC) in news articles.
 </p>  
