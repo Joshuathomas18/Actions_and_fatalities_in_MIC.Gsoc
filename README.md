@@ -26,9 +26,7 @@ This project utilizes:
 - **Matplotlib & Seaborn** (Data visualization)  
 
  # 🚀 **MIC Incident Detection Pipeline**  
-_A complete NLP & Machine Learning pipeline for classifying MIC-related news articles._
 
----
 
 ## 🔄 **Pipeline Overview**  
 
