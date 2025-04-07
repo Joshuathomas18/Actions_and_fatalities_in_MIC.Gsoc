@@ -9,36 +9,36 @@ from collections import Counter
 from summa.summarizer import summarize
 from nltk.util import ngrams
 
-# ✅ Load SpaCy model with dependency parsing
+#  Load SpaCy model with dependency parsing
 nlp = spacy.load("en_core_web_sm")
 
-# ✅ Load Pre-trained Word2Vec (Use the correct path)
+#  Load Pre-trained Word2Vec (Use the correct path)
 word_vectors = KeyedVectors.load_word2vec_format("C:/Users/User/Desktop/NLTK_vscode/GoogleNews-vectors-negative300.bin", binary=True)
 
-# ✅ Download necessary NLTK resources
+#  Download necessary NLTK resources
 nltk.download("opinion_lexicon")
 nltk.download("punkt")
 from nltk.corpus import opinion_lexicon
 
-# ✅ Sentiment word lists
+#  Sentiment word lists
 positive_words = set(opinion_lexicon.positive())
 negative_words = set(opinion_lexicon.negative())
 
-# ✅ Death-related keywords
+#  Death-related keywords
 death_keywords = {"killed", "deaths", "fatalities", "casualties", "dead", "attacks", "strikes"}
 minor_injury_keywords = {"wounded", "injured", "hurt"}  # For max fatalities
 
-# ✅ MIC-related bigrams/trigrams
+#  MIC-related bigrams/trigrams
 mic_phrases = {
     "bigrams": {("military", "attack"), ("air", "strike"), ("border", "conflict")},
     "trigrams": {("cross", "border", "attack"), ("deadly", "air", "strike")}
 }
 
-# ✅ Load valid country list from CSV
+#  Load valid country list from CSV
 country_df = pd.read_csv("C:/Users/User/Desktop/NLTK_vscode/states2016.csv")
 valid_countries = set(country_df["statenme"].str.lower())
 
-# ✅ Conflict-related words to filter relevant countries
+#  Conflict-related words to filter relevant countries
 conflict_keywords = {"attack", "war", "bombing", "strike", "troops", "invade"}
 
 def extract_articles(text):
@@ -60,18 +60,18 @@ def extract_countries(article):
     doc = nlp(article)
     country_mentions = Counter()
 
-    # ✅ Step 1: Use Named Entity Recognition (NER)
+    #  Step 1: Use Named Entity Recognition (NER)
     for ent in doc.ents:
         if ent.label_ == "GPE" and ent.text.lower() in valid_countries:
             country_mentions[ent.text.lower()] += 1  # Count occurrences
 
-    # ✅ Step 2: Use Dependency Parsing to find countries linked to conflict words
+    #  Step 2: Use Dependency Parsing to find countries linked to conflict words
     for token in doc:
         if token.dep_ in {"pobj", "dobj"} and token.head.text.lower() in conflict_keywords:
             if token.text.lower() in valid_countries:
                 country_mentions[token.text.lower()] += 2  # Higher weight for context relevance
 
-    # ✅ Step 3: Use Word2Vec for similarity with attack-related words
+    #  Step 3: Use Word2Vec for similarity with attack-related words
     for country in valid_countries:
         country_words = country.split()
         for word in country_words:
@@ -87,7 +87,7 @@ def extract_countries(article):
                 except KeyError:
                     continue  
 
-    # ✅ Step 4: Keep only the **top 2 most mentioned countries**
+    #  Step 4: Keep only the **top 2 most mentioned countries**
     top_countries = [c for c, _ in country_mentions.most_common(2)]
     
     return ", ".join(top_countries) if top_countries else "Unknown"
@@ -143,7 +143,7 @@ def process_document(text):
             date = extract_date(article)
             countries = extract_countries(article)
 
-            if countries == "Unknown":  # ✅ Remove rows where country is unknown
+            if countries == "Unknown":  #  Remove rows where country is unknown
                 continue  
 
             fatalities = Counter(tokens)
@@ -163,12 +163,12 @@ def process_document(text):
 
     return pd.DataFrame(data, columns=["Date", "Min Fatalities", "Max Fatalities", "Countries Involved", "Positive Words", "Negative Words", "Neutral Words", "MIC Status"])
 
-# ✅ Read input text file and process
+#  Read input text file and process
 with open("C:/Users/User/Desktop/NLTK_vscode/New York Times/2002-2010/2002.txt", "r", encoding="ISO-8859-1") as f:
     text = f.read()
 
 df = process_document(text)
 
-# ✅ Save results
+#  Save results
 df.to_csv("deathmic_output.csv", index=False)
-print("✅ Processing complete. Output saved to deathmic_output.csv")
+print(" Processing complete. Output saved to deathmic_output.csv")
