@@ -7,10 +7,11 @@
 
 Mass Incident Casualty (MIC) detection and classification is a crucial NLP task for analyzing news articles and identifying events involving fatalities. This project builds an **automated MIC extraction pipeline** using **Natural Language Processing (NLP) techniques** and **Machine Learning (ML) models** to:  
 
-- Extract fatalities (minimum and maximum) from news text.  
-- Identify the countries involved in each incident.  
-- Analyze sentiment (positive, negative, neutral words) for better classification.  
-- Accurately classify articles as **MIC** or **Not MIC** using advanced **heuristic methods**, **POS-based extraction**, and **n-grams**.  
+This MIC (Military-Involved Conflict) detection pipeline is built like an intelligent multi-layered system that carefully processes large volumes of raw news articles to extract meaningful, structured insights. It starts by **recursively scanning `.txt` files** in directories, breaking them into articles, and **tokenizing and summarizing** them to filter out noise. Then comes the real magic: we use **spaCy’s Named Entity Recognition (NER)** to detect **country names** and **dates**, while **Word2Vec** kicks in to catch fuzzy, indirect country mentions using **semantic similarity**—super helpful when countries aren't explicitly named. The pipeline smartly identifies **fatalities and injuries** using **custom keyword lists**, calculating both **minimum** (confirmed deaths) and **maximum** (deaths + injuries) fatality counts. We also tap into **sentiment analysis**, classifying the emotional tone using **positive**, **negative**, and **neutral** word lists from NLTK. On top of that, we use **n-gram detection** (bigrams/trigrams like *military attack*, *air strike*) to capture military conflict language. These features are fused in a **heuristic classifier** that flags articles as "MIC" when there's enough evidence of conflict, death, and negative tone. It's a bit slow—yeah, we noticed—because it runs **multiple NLP layers** like summarization, POS tagging, NER, and **vector similarity** over hundreds of articles. But honestly? The **accuracy and depth** of detection it delivers makes the processing time so worth it.
+
+---
+
+Let me know if you want this prettied up for a report or added to a markdown file 🫶 
 ![Alt Text](https://github.com/Joshuathomas18/Actions_and_fatalities_in_MIC.Gsoc/blob/main/Screenshot%202025-04-05%20130936.png)
 **This is an Example of the output of the code**
 ### 🛠 Tech Stack & Libraries  
@@ -225,6 +226,8 @@ sample_text = "A massive earthquake killed 50 people."
 classification = classify_article(sample_text)
 print(f"Article Classification: {classification}")
 ```
+
+[Link Text](relative/path/to/your/file.ext)
 
 
 
