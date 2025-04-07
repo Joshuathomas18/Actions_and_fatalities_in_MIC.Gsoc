@@ -38,7 +38,7 @@ The MIC Detection Pipeline automates the process of identifying **Mass Incident 
 
 ## 🏗 **Pipeline Stages**  
 
-### 🔥 **1️⃣ Text Preprocessing**  
+###  **1️⃣ Text Preprocessing**  
 🔹 **Goal:** Clean and tokenize the raw text for further analysis.  
 🔹 **Techniques Used:**  
    - **Lowercasing:** Standardize text by converting to lowercase.  
@@ -67,7 +67,7 @@ sample_text = "An attack killed 5 people and left many wounded."
 clean_text = preprocess_text(sample_text)
 print(clean_text)
 ```
-## 🔥 **2️⃣ Named Entity Recognition (NER) for Fatalities & Locations**  
+##  **2️⃣ Named Entity Recognition (NER) for Fatalities & Locations**  
 
 ### 🎯 **Goal:**  
 Extract **fatality numbers** & **country mentions** from text using **Named Entity Recognition (NER)**.
@@ -118,7 +118,7 @@ print(f"Fatalities: {fatalities}")
 print(f"Countries: {countries}")
 ```
 
-## 🔥 **3️⃣ Sentiment & Death Word Analysis for MIC Classification**  
+##  **3️⃣ Sentiment & Death Word Analysis for MIC Classification**  
 
 ### 🎯 **Goal:**  
  Classify articles as MIC-related or Not MIC based on:
@@ -245,7 +245,7 @@ So here's a  the [**Output**](final_MIC_output.csv) I was able to generate withi
 
 
 ![Alt Text](https://github.com/Joshuathomas18/Actions_and_fatalities_in_MIC.Gsoc/blob/main/Screenshot%202025-04-07%20124246.png)
-
+Taking over 370 hours so I am uploading how much ever it has done in past 10hours.
 
 
 
