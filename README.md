@@ -11,7 +11,6 @@ This MIC (Military-Involved Conflict) detection pipeline is built like an intell
 
 ---
 
-Let me know if you want this prettied up for a report or added to a markdown file 🫶 
 ![Alt Text](https://github.com/Joshuathomas18/Actions_and_fatalities_in_MIC.Gsoc/blob/main/Screenshot%202025-04-05%20130936.png)
 **This is an Example of the output of the code**
 ### 🛠 Tech Stack & Libraries  
