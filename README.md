@@ -227,7 +227,7 @@ classification = classify_article(sample_text)
 print(f"Article Classification: {classification}")
 ```
 
-[Link Text]([relative/path/to/your/file.ext](https://github.com/Joshuathomas18/Actions_and_fatalities_in_MIC.Gsoc/blob/main/deathmic_output.csv))
+[Link Text](deathmic_output.csv)
 
 
 
