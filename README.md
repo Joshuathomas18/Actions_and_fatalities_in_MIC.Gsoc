@@ -241,8 +241,163 @@ Also, the dataset itself is massive: 766 text files, each with potentially unstr
 So here's a  the [**Output**](final_MIC_output.csv) I was able to generate within the current processing window 👇This is the [CODE](mkc_nltk.py)
 
 
-![Alt Text](https://github.com/Joshuathomas18/Actions_and_fatalities_in_MIC.Gsoc/blob/main/Screenshot%202025-04-07%20124246.png)
-Taking over 370 hours so I am uploading how much ever it has done in past 10hours.
+# Enhanced MIE Classification System
+
+This project implements an advanced pipeline for classifying Militarized Interstate Events (MIE) using a combination of Exploratory Data Analysis (EDA), Retrieval-Augmented Generation (RAG), and Large Language Models (LLMs). The system leverages both traditional NLP/ML techniques and modern LLMs (via Ollama) to provide robust, explainable MIE predictions.
+
+---
+
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
+- [RAG Implementation](#rag-implementation)
+- [LLM + RAG Workflow](#llm--rag-workflow)
+- [Configuration](#configuration)
+- [How to Run](#how-to-run)
+- [Directory Structure](#directory-structure)
+- [References](#references)
+
+---
+
+## Project Overview
+
+- **Goal:** Classify news articles as MIE (Militarized Interstate Event) or NOT_MIE, with detailed reasoning, action types, countries involved, and fatality counts.
+- **Tech Stack:** Python, scikit-learn, sentence-transformers, pandas, Ollama (for LLM inference).
+- **Key Features:**
+  - EDA for understanding and filtering the dataset.
+  - RAG for context-aware retrieval of similar articles.
+  - LLM (Ollama) for structured, explainable classification.
+  - Hybrid approach combining heuristics, ML, and LLM outputs.
+
+---
+
+## Exploratory Data Analysis (EDA)
+
+The EDA is performed in `eda_analysis.py` and includes:
+
+- **Dataset Loading:** Loads the raw NYT articles dataset.
+- **Overview:** Prints dataset shape, column names, and value counts for the `Probable MIE` column.
+- **Filtering:** Creates a filtered dataset containing only articles labeled as `Probable MIE = 1`.
+- **Export:** Saves the filtered dataset for downstream tasks.
+- **Sample Output:** Displays a sample of the filtered data for quick inspection.
+
+This step ensures data quality and provides insights into the distribution of MIE vs. non-MIE articles.
+
+---
+
+## RAG Implementation
+
+The RAG (Retrieval-Augmented Generation) system is implemented across the following modules:
+
+- **Vector Store:** (`rag/vectorstore/embedding_store.py`)
+  - Uses `sentence-transformers` to embed articles.
+  - Stores embeddings and metadata in a persistent vector store (`vectorstore.pkl`).
+  - Supports adding new documents and searching for similar articles using cosine similarity.
+
+- **Retriever:** (`rag/retrieval/retriever.py`)
+  - Retrieves top-k relevant articles from the vector store for a given query.
+
+- **Context Builder:** (`rag/context/context_builder.py`)
+  - (Stub) Intended to build a context string for the LLM from retrieved documents.
+
+- **Integration:** The main system (`enhanced_mie_system.py`) uses these components to find similar articles for any input, providing context to the LLM.
+
+---
+
+## LLM + RAG Workflow
+
+The core workflow is as follows:
+
+1. **Preprocessing & EDA:** Data is cleaned and filtered using `eda_analysis.py`.
+2. **Embedding & Indexing:** Articles are embedded and stored in the vector store.
+3. **Retrieval:** For a new article, the system retrieves the most similar articles using the RAG retriever.
+4. **Prompt Construction:** The input article and retrieved examples are formatted into a structured prompt.
+5. **LLM Inference:** The prompt is sent to the Ollama LLM (using the `MICclass` model) for classification.
+6. **Heuristic & Hybrid Decision:** The system combines LLM output with traditional heuristics (sentiment, keyword, entity extraction) for a final decision.
+7. **Structured Output:** The LLM is prompted to return results in a strict format, including:
+    - Classification (MIE/NOT_MIE)
+    - Reasoning
+    - Action type
+    - Countries involved
+    - Fatalities
+
+**Example LLM Prompt Structure:**
+```
+<article>
+[Article text...]
+</article>
+
+<classification>
+1. Classification: <MIE/NOT_MIE>
+2. Reasoning: <explanation>
+3. Action type: <action type or N/A>
+4. Countries involved: <countries>
+5. Fatalities: <fatalities or N/A>
+</classification>
+```
+
+---
+
+## Configuration
+
+All settings (data paths, model names, RAG parameters, etc.) are managed in `utils/config/settings.py`. Key parameters include:
+
+- Embedding model: `all-MiniLM-L6-v2`
+- Vector store path: `data/embeddings/vectorstore/`
+- Ollama LLM endpoint: `http://localhost:11434`
+- Dataset file: `final_data_true.csv`
+
+---
+
+## How to Run
+
+1. **Install dependencies:**  
+   Make sure you have Python 3.8+ and run:
+   ```
+   pip install -r requirements.txt
+   ```
+
+2. **Prepare data:**  
+   Place your dataset (e.g., `final_data_true.csv`) in the project root or update the config.
+
+3. **Run EDA:**  
+   ```
+   python eda_analysis.py
+   ```
+
+4. **Train RAG embeddings:**  
+   This is handled automatically in the main system, but you can also use the vector store module directly.
+
+5. **Start the Enhanced MIE System:**  
+   ```
+   python enhanced_mie_system.py
+   ```
+
+6. **Interactive Mode:**  
+   The system supports interactive classification for new articles.
+
+---
+
+## Directory Structure
+
+- `eda_analysis.py` — EDA and data filtering
+- `rag/` — RAG modules (vector store, retriever, context builder)
+- `enhanced_mie_system.py` — Main hybrid LLM+RAG system
+- `utils/config/settings.py` — Configuration
+- `data/` — Raw, processed, and embedding data
+
+---
+
+## References
+
+- [Ollama LLM](https://ollama.com/)
+- [Sentence Transformers](https://www.sbert.net/)
+- [scikit-learn](https://scikit-learn.org/)
+- [VADER Sentiment](https://github.com/cjhutto/vaderSentiment)
+
+---
+
 
 
 
